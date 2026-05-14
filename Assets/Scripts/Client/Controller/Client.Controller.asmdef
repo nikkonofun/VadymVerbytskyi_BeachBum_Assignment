@@ -1,0 +1,18 @@
+{
+    "name": "Client.Controller",
+    "rootNamespace": "",
+    "references": [
+        "GUID:eea37eac19ab9624ca5d964a4221afbc",
+        "GUID:97be4994ef5ef4241ba59f5ee079e3d3",
+        "GUID:0533201c1fb79964e8eee461178babff"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
