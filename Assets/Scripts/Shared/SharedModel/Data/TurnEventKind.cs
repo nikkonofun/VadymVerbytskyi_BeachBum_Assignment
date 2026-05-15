@@ -2,7 +2,7 @@
 {
   public enum TurnEventKind
   {
-    ProcessInitialDeck,
+    GetCardsFromInitialDeck,
     
     RevealTopFromDeck,
     PutToSidePile,
