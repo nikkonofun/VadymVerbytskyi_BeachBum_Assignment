@@ -52,9 +52,18 @@ namespace Server.ServerModel.Logic
       for (var i = 0; i < matchData.Players.Length; i++)
       {
         var playerIdx = i;
+        var player = matchData.Players[playerIdx];
+
+        // When comes from war
+        if (player.RevealedOnTable != null)
+        {
+          player.HiddenOnTable.Push(player.RevealedOnTable.Value);
+          player.RevealedOnTable = null;
+        }
+        
         if (!TryTakeNextPlayerCard(i, matchData, responseDto, card =>
             {
-              matchData.Players[playerIdx].RevealedOnTable = card;
+              player.RevealedOnTable = card;
               responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.RevealTopFromDeck, playerIdx, matchData));
             }))
           return false;
