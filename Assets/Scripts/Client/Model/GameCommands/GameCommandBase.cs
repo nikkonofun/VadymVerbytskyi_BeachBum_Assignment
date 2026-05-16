@@ -4,7 +4,7 @@ using Shared.SharedModel.Dto;
 
 namespace Client.Model.GameCommands
 {
-  public abstract class GameCommandBase<TRequest, TResponse>
+  public abstract class GameCommandBase<TRequest, TResponse> : IGameCommand
     where TRequest : RequestDtoBase
     where TResponse : ResponseDtoBase
   {
@@ -14,7 +14,7 @@ namespace Client.Model.GameCommands
     private Action<TResponse> _onOk;
     private Action _onError;
     
-    public TRequest RequestDto { get; private set; }
+    public RequestDtoBase RequestDto { get; private set; }
     
     protected IAppModel AppModel;
 
@@ -39,16 +39,17 @@ namespace Client.Model.GameCommands
       return this;
     }
 
-    public void ProcessResponse(TResponse response)
+    public void ProcessResponse(ResponseDtoBase response)
     {
-      if (response == null) // TODO: make error codes
+      var responseTyped = response as TResponse;
+      if (responseTyped == null) // TODO: make error codes
       {
         _onError?.Invoke();
         return;
       }
 
-      ProcessResponseImpl(response);
-      _onOk?.Invoke(response);
+      ProcessResponseImpl(responseTyped);
+      _onOk?.Invoke(responseTyped);
     }
 
     protected abstract void ProcessResponseImpl(TResponse response);

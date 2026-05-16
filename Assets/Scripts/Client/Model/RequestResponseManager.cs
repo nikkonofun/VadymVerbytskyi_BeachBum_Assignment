@@ -14,14 +14,16 @@ namespace Client.Model
     // TODO: implement error handling
     
     private Guid? _processingRequestGuid;
-    private GameCommandBase<RequestDtoBase, ResponseDtoBase> _processingCommand;  // TODO: use with retries
+    private IGameCommand _processingCommand;  // TODO: use with retries
 
-    public async UniTask<ResponseDtoBase> TryExecuteRequest(GameCommandBase<RequestDtoBase, ResponseDtoBase> command)
+    public bool RequestInProgress => _processingRequestGuid != null;
+
+    public async UniTask<ResponseDtoBase> TryExecuteRequest(IGameCommand command, Guid processingRequestGuid)
     {
-      if (_processingRequestGuid != null || command == null)
+      if (RequestInProgress || command == null)
         return null;
 
-      _processingRequestGuid = Guid.NewGuid();
+      _processingRequestGuid = processingRequestGuid;
       _processingCommand = command;
 
       try
