@@ -2,7 +2,9 @@
     "name": "Client.Model",
     "rootNamespace": "",
     "references": [
-        "GUID:0533201c1fb79964e8eee461178babff"
+        "GUID:0533201c1fb79964e8eee461178babff",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:8cdb6118d608c06439634d34a428db16"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

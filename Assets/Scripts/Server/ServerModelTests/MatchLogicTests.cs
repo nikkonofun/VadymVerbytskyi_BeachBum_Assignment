@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Server.ServerModel.Data;
 using Server.ServerModel.Logic;
 using Shared.SharedModel.Data;
+using Shared.SharedModel.Dto.MakeTurn;
 
 namespace Server.ServerModelTests
 {
@@ -304,7 +305,7 @@ namespace Server.ServerModelTests
       }
     }
 
-    private static bool ContainsEvent(IEnumerable<Shared.SharedModel.Dto.TurnEventData> events, TurnEventKind kind)
+    private static bool ContainsEvent(IEnumerable<TurnEventData> events, TurnEventKind kind)
     {
       foreach (var turnEvent in events)
         if (turnEvent.EventKind == kind)

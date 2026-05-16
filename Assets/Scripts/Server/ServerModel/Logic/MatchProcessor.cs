@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Server.ServerModel.Data;
 using Shared.SharedModel.Data;
-using Shared.SharedModel.Dto;
 using Shared.SharedModel.Dto.MakeTurn;
 
 namespace Server.ServerModel.Logic

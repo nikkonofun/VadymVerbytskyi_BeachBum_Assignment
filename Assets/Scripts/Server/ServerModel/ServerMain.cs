@@ -18,7 +18,7 @@ namespace Server.ServerModel
     private static Guid? _startMatchRequestId;
     private static Dictionary<Guid, MakeTurnResponseDto> _history;
 
-    private static readonly Dictionary<string, Func<string, string>> _nameToMethod = new()
+    private static readonly Dictionary<string, Func<string, string>> NameToMethod = new()
     {
       { "LaunchMatch", LaunchMatch },
       { "MakeTurn", MakeTurn },
@@ -26,7 +26,7 @@ namespace Server.ServerModel
 
     public static string CallMethod(string methodName, string requestJson)
     {
-      if (!_nameToMethod.TryGetValue(methodName, out var method))
+      if (!NameToMethod.TryGetValue(methodName, out var method))
         return null;  // Simplification. Should return 400 normally
       
       return method(requestJson);
@@ -47,11 +47,11 @@ namespace Server.ServerModel
       
       var response = new LaunchMatchResponseDto
       {
-        TurnEvents = new Queue<TurnEventData>()
+        PlayerCardsCount = new int[_matchData.Players.Length]
       };
 
       for (var i = 0; i < _matchData.Players.Length; i++)
-        response.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.GetCardsFromInitialDeck, i, _matchData));
+        response.PlayerCardsCount[i] = _matchData.Players[i].PlayDeck.Count;
       
       return JsonConvert.SerializeObject(response);
     }
