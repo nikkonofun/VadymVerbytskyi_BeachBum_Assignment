@@ -10,13 +10,13 @@ namespace Client.Controller.InputHandle
 {
   public abstract class ButtonCommandHandlerBase : MonoBehaviour
   {
-    protected AppModel AppModel { get; private set; }
+    protected IAppModel AppModel { get; private set; }
     
     private RequestResponseManager _requestResponseManager;
     private Guid? _nextRequestGuid;
 
     [Inject]
-    public void Inject(RequestResponseManager requestResponseManager, AppModel appModel)
+    public void Inject(RequestResponseManager requestResponseManager, IAppModel appModel)
     {
       _requestResponseManager = requestResponseManager;
       AppModel = appModel;
