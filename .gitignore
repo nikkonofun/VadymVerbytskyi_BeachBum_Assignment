@@ -6,3 +6,4 @@ UserSettings/
 .idea/
 *.sln
 *.csproj
+*.DotSettings.user
