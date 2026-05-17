@@ -6,6 +6,6 @@ namespace Client.View.TurnsAnimation.AnimationClips
 {
   public interface IAnimationClip
   {
-    public UniTask Animate(GameView gameView, TurnEventData turnEventData);
+    public UniTask Animate(GameView gameView, TurnEventData turnEventData, AnimationConfig animationConfig);
   }
 }

@@ -8,5 +8,9 @@ namespace Client.View.ElementsView
     public DeckView SidePile;
     public DeckView WarPile;
     public RevealedCardView RevealedCard;
+    
+    public DeckView CardsDeckAnimation;
+    public DeckView CardsDeckAnimationExtra;
+    public RevealedCardView RevealedCardAnimation;
   }
 }

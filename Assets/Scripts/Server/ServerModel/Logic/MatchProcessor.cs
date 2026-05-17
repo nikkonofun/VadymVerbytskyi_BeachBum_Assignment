@@ -118,11 +118,13 @@ namespace Server.ServerModel.Logic
         for (var j = 0; j < unrevealedToTake; j++)
         {
           if (!TryTakeNextPlayerCard(i, matchData, responseDto,
-                card => { matchData.Players[playerIdx].HiddenOnTable.Push(card); }))
+              card =>
+              {
+                matchData.Players[playerIdx].HiddenOnTable.Push(card);
+                responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.TakeUnrevealedForWar, i, matchData));
+              }))
             return false;
         }
-        
-        responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.TakeUnrevealedForWar, i, matchData));
       }
 
       return true;

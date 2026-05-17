@@ -88,5 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16211452394144e39af3d2b61b9a8b64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trans: {fileID: 8352214345407113268}
+  _obj: {fileID: 4575745706368547234}
   _cardImage: {fileID: 8549035725735272477}
   _cardsAtlas: {fileID: 100100200, guid: ca4ca47bf0eb1824da11a27923b6c0fe, type: 3}

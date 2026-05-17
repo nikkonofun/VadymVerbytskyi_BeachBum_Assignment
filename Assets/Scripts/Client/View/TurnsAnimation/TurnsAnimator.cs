@@ -11,8 +11,9 @@ namespace Client.View.TurnsAnimation
   public class TurnsAnimator : MonoBehaviour, ITurnsAnimator
   {
     [SerializeField] private GameView _gameView;
+    [SerializeField] private AnimationConfig _animationConfig;
 
-    private Dictionary<TurnEventKind, IAnimationClip> _eventToClips = new()
+    private readonly Dictionary<TurnEventKind, IAnimationClip> _eventToClips = new()
     {
       { TurnEventKind.GetCardsFromInitialDeck, new GetCardsFromInitialDeckAnimationClip() },
       { TurnEventKind.RevealTopFromDeck, new RevealTopFromDeckAnimationClip() },
@@ -26,23 +27,44 @@ namespace Client.View.TurnsAnimation
       AnimateImpl(turnData, onAnimationFinished).Forget();
     }
 
+    private void Awake()
+    {
+      Prepare();
+    }
+
     private async UniTaskVoid AnimateImpl(TurnEventData turnData, Action onAnimationFinished)
     {
-      await _eventToClips[turnData.EventKind].Animate(_gameView, turnData);
-      EnsureProperValues(turnData);
+      await _eventToClips[turnData.EventKind].Animate(_gameView, turnData, _animationConfig);
+      AnimationClipUtil.ResetAnimationElements(_gameView);
+      UpdateValues(turnData);
       onAnimationFinished();
     }
 
-    private void EnsureProperValues(TurnEventData turnData)
+    private void UpdateValues(TurnEventData turnData)
     {
       var playerView = _gameView.PlayersView[turnData.PlayerIdx];
       var playerTurn = turnData.PlayerTurn;
-      playerView.CardsDeck.CardsCount.text = playerTurn.PlayDeckCount.ToString();
-      playerView.SidePile.CardsCount.text = playerTurn.SidePileCount.ToString();
-      playerView.WarPile.CardsCount.text = playerTurn.HiddenCount.ToString();
+      playerView.CardsDeck.Set(playerTurn.PlayDeckCount);
+      playerView.SidePile.Set(playerTurn.SidePileCount);
+      playerView.WarPile.Set(playerTurn.HiddenCount);
       
       if (playerTurn.RevealedCard.HasValue)
         playerView.RevealedCard.Set(playerTurn.RevealedCard.Value);
+    }
+
+    private void Prepare()
+    {
+      _gameView.InitialDeckView.Set(Enum.GetValues(typeof(CardRank)).Length * Enum.GetValues(typeof(CardSuit)).Length);
+      foreach (var playerView in _gameView.PlayersView)
+      {
+        playerView.CardsDeck.Set(0);
+        playerView.SidePile.Set(0);
+        playerView.WarPile.Set(0);
+        playerView.RevealedCard.Set(null);
+        playerView.CardsDeckAnimation.Set(0);
+        playerView.CardsDeckAnimationExtra.Set(0);
+        playerView.RevealedCardAnimation.Set(null);
+      }
     }
   }
 }

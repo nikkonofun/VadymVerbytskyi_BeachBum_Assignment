@@ -5,15 +5,31 @@ using UnityEngine.UI;
 
 namespace Client.View.ElementsView
 {
-  public class RevealedCardView : MonoBehaviour
+  public class RevealedCardView : ElementViewBase
   {
+    [SerializeField] private GameObject _obj;
     [SerializeField] private Image _cardImage;
     [SerializeField] private SpriteAtlas _cardsAtlas;
 
-    public void Set(CardData cardData)
+    public void Set(CardData? cardData)
     {
-      var spriteName = $"{cardData.Suit.ToString()}{cardData.Rank.ToString()}";
+      _obj.SetActive(cardData != null);
+      
+      if (cardData == null)
+        return;
+        
+      var spriteName = $"{cardData.Value.Suit.ToString()}{cardData.Value.Rank.ToString()}";
       _cardImage.sprite = _cardsAtlas.GetSprite(spriteName);
     }
+
+    public void SetSprite(RevealedCardView takeFrom)
+    {
+      var sprite = takeFrom._cardImage.sprite;
+      _obj.SetActive(sprite != null);
+      _cardImage.sprite = sprite; 
+    }
+
+    public Sprite GetSprite() =>
+      _cardImage.sprite;
   }
 }
