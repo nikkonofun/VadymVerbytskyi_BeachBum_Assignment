@@ -1,0 +1,18 @@
+{
+    "name": "Client.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:eea37eac19ab9624ca5d964a4221afbc"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

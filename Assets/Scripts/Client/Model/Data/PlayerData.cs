@@ -10,11 +10,6 @@ namespace Client.Model.Data
     public int PlayDeckCount { get; private set; }
     public int SidePileCount { get; private set; }
 
-    public PlayerData(int playDeckCount)
-    {
-      PlayDeckCount = playDeckCount;
-    }
-
     public void Update(PlayerTurnData turnData)
     {
       RevealedCard = turnData.RevealedCard;

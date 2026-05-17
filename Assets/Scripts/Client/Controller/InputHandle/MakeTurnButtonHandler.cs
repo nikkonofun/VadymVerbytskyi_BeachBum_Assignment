@@ -11,7 +11,7 @@ namespace Client.Controller.InputHandle
       return new MakeTurnCommand(new MakeTurnRequestDto
         {
           RequestId = processingRequestGuid
-        }, AppModel)
+        }, AppModel, TurnEventsFeed)
         .SetOnOk(response =>
         {
           // TODO: handle ok

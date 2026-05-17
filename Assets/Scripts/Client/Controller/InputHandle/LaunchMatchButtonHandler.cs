@@ -1,8 +1,10 @@
 using System;
+using Client.Controller.TurnsProcess;
 using Client.Model.GameCommands;
 using Shared.SharedModel.Dto.LaunchMatch;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -23,10 +25,9 @@ namespace Client.Controller.InputHandle
       return new LaunchMatchCommand(new LaunchMatchRequestDto
       {
         RequestId = processingRequestGuid
-      }, AppModel)
-      .SetOnOk(response =>
+      }, AppModel, TurnEventsFeed)
+      .SetOnOk(_ =>
       {
-        // TODO: handle initial cards giving (plan to turns processor)
         SceneManager.LoadScene(_gameplaySceneName);
       })
       .SetOnError(() =>
@@ -34,6 +35,8 @@ namespace Client.Controller.InputHandle
         // TODO: handle error
       });
     }
+    
+    
 
 #if UNITY_EDITOR
     private void OnValidate()

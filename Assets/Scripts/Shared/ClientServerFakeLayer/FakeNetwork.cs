@@ -11,7 +11,7 @@ namespace Shared.ClientServerFakeLayer
     private const float FailureChance = 0.2f; // 0..1 -> 0%..100%
     private const int FailureDelayMs = 5000;
     
-    public static async UniTask<string> CallServerMethod(string methodName, string requestJson)
+    public static async UniTask<string> CallServerMethodAsync(string methodName, string requestJson)
     {
       if (Random.Range(0.0f, 1.0f) < FailureChance)
       {

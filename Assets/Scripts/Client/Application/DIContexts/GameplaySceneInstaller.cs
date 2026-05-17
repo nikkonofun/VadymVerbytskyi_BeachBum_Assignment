@@ -1,11 +1,15 @@
-﻿using Zenject;
+﻿using Client.Controller.TurnsProcess;
+using Client.View.TurnsAnimation;
+using Zenject;
 
-namespace Client.Application
+namespace Client.Application.DIContexts
 {
   public class GameplaySceneInstaller : MonoInstaller
   {
     public override void InstallBindings()
     {
+      Container.Bind<ITurnsAnimator>().To<TurnsAnimator>().FromComponentInHierarchy().AsSingle();
+      Container.Bind<TurnsProcessor>().AsSingle();
     }
   }
 }

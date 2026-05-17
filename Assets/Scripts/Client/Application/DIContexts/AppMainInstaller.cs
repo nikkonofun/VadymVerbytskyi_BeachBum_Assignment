@@ -1,7 +1,8 @@
-﻿using Client.Model;
+﻿using Client.Controller.TurnsProcess;
+using Client.Model;
 using Zenject;
 
-namespace Client.Application
+namespace Client.Application.DIContexts
 {
   public class AppMainInstaller : MonoInstaller
   {
@@ -9,6 +10,7 @@ namespace Client.Application
     {
       Container.Bind<IAppModel>().To<AppModel>().AsSingle();
       Container.Bind<RequestResponseManager>().AsSingle();
+      Container.Bind<ITurnEventsFeed>().To<TurnEventsFeed>().AsSingle();
     }
   }
 }

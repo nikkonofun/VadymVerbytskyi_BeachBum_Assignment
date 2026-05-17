@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 using Server.ServerModel.Data;
 using Server.ServerModel.Logic;
 using Shared.SharedModel.Data;
-using Shared.SharedModel.Dto;
 using Shared.SharedModel.Dto.LaunchMatch;
 using Shared.SharedModel.Dto.MakeTurn;
 
@@ -44,15 +43,25 @@ namespace Server.ServerModel
 
         _history = new Dictionary<Guid, MakeTurnResponseDto>();
       }
-      
-      var response = new LaunchMatchResponseDto
+
+      var response = new LaunchMatchResponseDto()
       {
-        PlayerCardsCount = new int[_matchData.Players.Length]
+        TurnEvents = new Queue<TurnEventData>()
       };
 
       for (var i = 0; i < _matchData.Players.Length; i++)
-        response.PlayerCardsCount[i] = _matchData.Players[i].PlayDeck.Count;
-      
+      {
+        response.TurnEvents.Enqueue(new TurnEventData
+        {
+          EventKind = TurnEventKind.GetCardsFromInitialDeck,
+          PlayerIdx = i,
+          PlayerTurn = new PlayerTurnData
+          {
+            PlayDeckCount = _matchData.Players[i].PlayDeck.Count
+          }
+        });
+      }
+
       return JsonConvert.SerializeObject(response);
     }
 

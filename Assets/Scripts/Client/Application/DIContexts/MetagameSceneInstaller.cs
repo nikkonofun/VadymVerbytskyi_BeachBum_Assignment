@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-namespace Client.Application
+namespace Client.Application.DIContexts
 {
   public class MetagameSceneInstaller : MonoInstaller
   {

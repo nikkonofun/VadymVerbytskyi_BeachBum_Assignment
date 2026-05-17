@@ -1,4 +1,5 @@
-﻿using Shared.SharedModel.Data;
+﻿using System.Collections.Generic;
+using Shared.SharedModel.Data;
 
 namespace Client.Model.Data
 {
@@ -6,12 +7,13 @@ namespace Client.Model.Data
   {
     public PlayerData[] Players { get; }
     public MatchResultData MatchResult { get; set; }
+    public List<TurnEventData> TurnsHistory { get; }
 
-    public MatchData(int[] playerCardsCount)
+    public MatchData(int playersCount)
     {
-      Players = new PlayerData[playerCardsCount.Length];
-      for (var i = 0; i < playerCardsCount.Length; i++)
-        Players[i] = new PlayerData(playerCardsCount[i]);
+      Players = new PlayerData[playersCount];
+      for (var i = 0; i < playersCount; i++)
+        Players[i] = new PlayerData();
     }
   }
 }

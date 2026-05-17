@@ -18,7 +18,7 @@ namespace Client.Model
 
     public bool RequestInProgress => _processingRequestGuid != null;
 
-    public async UniTask<ResponseDtoBase> TryExecuteRequest(IGameCommand command, Guid processingRequestGuid)
+    public async UniTask<ResponseDtoBase> TryExecuteRequestAsync(IGameCommand command, Guid processingRequestGuid)
     {
       if (RequestInProgress || command == null)
         return null;
@@ -30,7 +30,7 @@ namespace Client.Model
       {
         var requestJson = JsonConvert.SerializeObject(command.RequestDto);
         
-        var responseJson = await FakeNetwork.CallServerMethod(command.MethodName, requestJson);
+        var responseJson = await FakeNetwork.CallServerMethodAsync(command.MethodName, requestJson);
         if (string.IsNullOrEmpty(responseJson))
           return null;
         

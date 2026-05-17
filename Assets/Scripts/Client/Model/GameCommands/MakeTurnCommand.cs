@@ -1,24 +1,25 @@
-﻿using System.Linq;
+﻿using Client.Controller.TurnsProcess;
 using Shared.SharedModel.Dto.MakeTurn;
 
 namespace Client.Model.GameCommands
 {
   public class MakeTurnCommand : GameCommandBase<MakeTurnRequestDto, MakeTurnResponseDto>
   {
-    public MakeTurnCommand(MakeTurnRequestDto request, IAppModel appModel) : base(request, appModel) { }
+    private readonly ITurnEventsFeed _turnEventsFeed;
+    
+    public MakeTurnCommand(MakeTurnRequestDto request, IAppModel appModel, ITurnEventsFeed turnEventsFeed)
+      : base(request, appModel)
+    {
+      _turnEventsFeed = turnEventsFeed;
+    }
 
     public override string MethodName => "MakeTurn";
     
     protected override void ProcessResponseImpl(MakeTurnResponseDto response)
     {
-      for (var i = 0; i < AppModel.PlayerCount; i++)
-      {
-        var lastPlayerEvent = response.TurnEvents.LastOrDefault(x => x.PlayerIdx == i);
-        if (lastPlayerEvent != null)
-          AppModel.UpdatePlayer(lastPlayerEvent);
-      }
-
+      AppModel.UpdatePlayers(response.TurnEvents);
       AppModel.UpdateMatchResult(response.MatchResult);
+      _turnEventsFeed.Enqueue(response.TurnEvents);
     }
   }
 }

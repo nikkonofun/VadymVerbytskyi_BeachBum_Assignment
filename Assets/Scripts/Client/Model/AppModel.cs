@@ -1,6 +1,7 @@
-﻿using Client.Model.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Client.Model.Data;
 using Shared.SharedModel.Data;
-using Shared.SharedModel.Dto.MakeTurn;
 
 namespace Client.Model
 {
@@ -8,12 +9,22 @@ namespace Client.Model
   {
     private MatchData _match;
 
-    public void InitializeMatch(int[] playerCardsCount)
+    public void InitializeMatch(int playersCount)
     {
-      _match = new MatchData(playerCardsCount);
+      _match = new MatchData(playersCount);
     }
 
     public int PlayerCount => _match.Players.Length;
+
+    public void UpdatePlayers(Queue<TurnEventData> turnEvents)
+    {
+      for (var i = 0; i < PlayerCount; i++)
+      {
+        var lastPlayerEvent = turnEvents.LastOrDefault(x => x.PlayerIdx == i);
+        if (lastPlayerEvent != null)
+          UpdatePlayer(lastPlayerEvent);
+      }
+    }
 
     public void UpdatePlayer(TurnEventData turnEventData)
     {
