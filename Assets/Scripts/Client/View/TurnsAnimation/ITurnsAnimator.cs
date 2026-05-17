@@ -1,5 +1,4 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using Shared.SharedModel.Data;
 
 namespace Client.View.TurnsAnimation

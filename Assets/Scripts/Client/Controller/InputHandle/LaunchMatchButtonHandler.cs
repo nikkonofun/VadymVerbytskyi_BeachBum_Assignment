@@ -4,7 +4,6 @@ using Client.Model.GameCommands;
 using Shared.SharedModel.Dto.LaunchMatch;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -35,8 +34,6 @@ namespace Client.Controller.InputHandle
         // TODO: handle error
       });
     }
-    
-    
 
 #if UNITY_EDITOR
     private void OnValidate()

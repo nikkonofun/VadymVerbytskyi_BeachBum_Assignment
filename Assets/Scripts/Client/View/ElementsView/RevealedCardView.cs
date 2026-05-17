@@ -12,7 +12,8 @@ namespace Client.View.ElementsView
 
     public void Set(CardData cardData)
     {
-      _cardImage.sprite = _cardsAtlas.GetSprite(cardData.Suit + cardData.Rank.ToString());
+      var spriteName = $"{cardData.Suit.ToString()}{cardData.Rank.ToString()}";
+      _cardImage.sprite = _cardsAtlas.GetSprite(spriteName);
     }
   }
 }

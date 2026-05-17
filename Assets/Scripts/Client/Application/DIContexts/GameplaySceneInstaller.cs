@@ -9,7 +9,7 @@ namespace Client.Application.DIContexts
     public override void InstallBindings()
     {
       Container.Bind<ITurnsAnimator>().To<TurnsAnimator>().FromComponentInHierarchy().AsSingle();
-      Container.Bind<TurnsProcessor>().AsSingle();
+      Container.BindInterfacesAndSelfTo<TurnsProcessor>().AsSingle().NonLazy();
     }
   }
 }

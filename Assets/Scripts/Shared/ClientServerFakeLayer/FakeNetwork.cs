@@ -6,9 +6,10 @@ namespace Shared.ClientServerFakeLayer
 {
   public static class FakeNetwork
   {
-    private const int MinDelayMs = 200;
-    private const int MaxDelayMs = 2000;
-    private const float FailureChance = 0.2f; // 0..1 -> 0%..100%
+    // TODO: make SO
+    private const int MinDelayMs = 0;
+    private const int MaxDelayMs = 0;
+    private const float FailureChance = 0.0f; // 0..1 -> 0%..100%
     private const int FailureDelayMs = 5000;
     
     public static async UniTask<string> CallServerMethodAsync(string methodName, string requestJson)
