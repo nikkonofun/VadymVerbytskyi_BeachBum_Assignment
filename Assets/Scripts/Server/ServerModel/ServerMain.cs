@@ -23,6 +23,8 @@ namespace Server.ServerModel
       { "MakeTurn", MakeTurn },
     };
 
+    private static bool IsInitialized => _matchData != null;
+
     public static string CallMethod(string methodName, string requestJson)
     {
       if (!NameToMethod.TryGetValue(methodName, out var method))
@@ -44,7 +46,7 @@ namespace Server.ServerModel
         _history = new Dictionary<Guid, MakeTurnResponseDto>();
       }
 
-      var response = new LaunchMatchResponseDto()
+      var response = new LaunchMatchResponseDto
       {
         TurnEvents = new Queue<TurnEventData>()
       };
@@ -67,6 +69,9 @@ namespace Server.ServerModel
 
     private static string MakeTurn(string requestJson)
     {
+      if (!IsInitialized)
+        return null;
+      
       var request = JsonConvert.DeserializeObject<MakeTurnRequestDto>(requestJson);
       if (_history.TryGetValue(request.RequestId, out var responseOfId))
         return JsonConvert.SerializeObject(responseOfId);
