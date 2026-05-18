@@ -75,3 +75,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _notificationManager: {fileID: 3400872323092595696, guid: f45f5b04a8873c245b8afc0f03bd58ac, type: 3}
+  _fakeNetworkConfig: {fileID: 11400000, guid: 31d1b3b30997f49419d2aef6beb8f66e, type: 2}
+  _retryPolicy: {fileID: 11400000, guid: 61cf896f456495a43a34537f0b6accf5, type: 2}

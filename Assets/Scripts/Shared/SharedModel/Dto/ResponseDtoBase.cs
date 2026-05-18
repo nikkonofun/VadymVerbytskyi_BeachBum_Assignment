@@ -4,7 +4,7 @@ using Shared.SharedModel.Data;
 
 namespace Shared.SharedModel.Dto
 {
-  public abstract class ResponseDtoBase : IFaultDto
+  public class ResponseDtoBase : IFaultDto
   {
     public FailureCode? FailureCode => Failure;
     
@@ -21,6 +21,7 @@ namespace Shared.SharedModel.Dto
 
   public enum FailureCode
   {
-    // TODO: impl codes
+    NetworkError,
+    Timeout
   }
 }

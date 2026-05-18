@@ -1,26 +1,33 @@
 ﻿using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using Server.ServerModel;
+using Shared.SharedModel.Dto;
 using UnityEngine;
+using Zenject;
 
 namespace Shared.ClientServerFakeLayer
 {
-  public static class FakeNetwork
+  public class FakeNetwork
   {
-    // TODO: make SO
-    private const int MinDelayMs = 0;
-    private const int MaxDelayMs = 0;
-    private const float FailureChance = 0.0f; // 0..1 -> 0%..100%
-    private const int FailureDelayMs = 5000;
+    private FakeNetworkConfig _config;
     
-    public static async UniTask<string> CallServerMethodAsync(string methodName, string requestJson)
+    [Inject]
+    public void Inject(FakeNetworkConfig config) =>
+      _config = config;
+    
+    public async UniTask<string> CallServerMethodAsync(string methodName, string requestJson)
     {
-      if (Random.Range(0.0f, 1.0f) < FailureChance)
-      {
-        await UniTask.Delay(FailureDelayMs);
-        return null;
-      }
+      await UniTask.Delay(Random.Range(_config.MinDelayMs, _config.MaxDelayMs));
+      
+      if (Random.Range(0.0f, 1.0f) < _config.NetworkFailureChance) 
+        return JsonConvert.SerializeObject(new ResponseDtoBase { Failure = FailureCode.NetworkError });
 
-      await UniTask.Delay(Random.Range(MinDelayMs, MaxDelayMs));
+      if (Random.Range(0.0f, 1.0f) < _config.RequestLossChance)
+      {
+        await UniTask.Delay(_config.TimeoutMs);
+        return JsonConvert.SerializeObject(new ResponseDtoBase { Failure = FailureCode.Timeout });
+      }
+      
       return ServerMain.CallMethod(methodName, requestJson);
     }
   }

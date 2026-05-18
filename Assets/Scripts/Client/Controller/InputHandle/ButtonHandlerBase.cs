@@ -2,6 +2,7 @@
 using Client.Controller.TurnsProcess;
 using Client.Model;
 using Client.Model.GameCommands;
+using Client.Model.RequestResponseManagement;
 using Client.View.Notification;
 using Cysharp.Threading.Tasks;
 using Shared.SharedModel.Dto;
@@ -54,7 +55,7 @@ namespace Client.Controller.InputHandle
     {
       ActivateButton(false);
       var command = GetCommand(_nextRequestGuid!.Value);
-      await _requestResponseManager.TryExecuteRequestAsync(command, _nextRequestGuid!.Value);
+      await _requestResponseManager.TryExecuteCommandAsync(command, _nextRequestGuid!.Value);
       _nextRequestGuid = null;
       ActivateButton(true);
     }
