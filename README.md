@@ -1,6 +1,7 @@
 # BeachBum Assignment (Vadym Verbytskyi)
 
 War card game implementation using Unity/C#
+
 Demo gameplay: https://youtu.be/Rn5HDsZ_1kc
 
 ## Technology stack
