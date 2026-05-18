@@ -24,9 +24,9 @@ Demo gameplay: https://youtu.be/Rn5HDsZ_1kc
 
 ## Configs
 
-Assets/Resources/Configs/AnimationConfig - animation timings
-Assets/Resources/Configs/FakeNetworkConfig - allows to simulate bad network on fake network layer
-Assets/Resources/Configs/RetryPolicyConfig - reteies setup for commands
+- Assets/Resources/Configs/AnimationConfig - animation timings
+- Assets/Resources/Configs/FakeNetworkConfig - allows to simulate bad network on fake network layer
+- Assets/Resources/Configs/RetryPolicyConfig - reteies setup for commands
 
 ## High level architecture
 
