@@ -1,8 +1,8 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Server.ServerModel;
 using Shared.SharedModel.Dto;
-using UnityEngine;
 using Zenject;
 
 namespace Shared.ClientServerFakeLayer
@@ -10,6 +10,7 @@ namespace Shared.ClientServerFakeLayer
   public class FakeNetwork
   {
     private FakeNetworkConfig _config;
+    private Random _random = new Random();
     
     [Inject]
     public void Inject(FakeNetworkConfig config) =>
@@ -17,12 +18,12 @@ namespace Shared.ClientServerFakeLayer
     
     public async UniTask<string> CallServerMethodAsync(string methodName, string requestJson)
     {
-      await UniTask.Delay(Random.Range(_config.MinDelayMs, _config.MaxDelayMs));
+      await UniTask.Delay(_random.Next(_config.MinDelayMs, _config.MaxDelayMs));
       
-      if (Random.Range(0.0f, 1.0f) < _config.NetworkFailureChance) 
+      if (_random.NextDouble() < _config.NetworkFailureChance) 
         return JsonConvert.SerializeObject(new ResponseDtoBase { Failure = FailureCode.NetworkError });
 
-      if (Random.Range(0.0f, 1.0f) < _config.RequestLossChance)
+      if (_random.NextDouble() < _config.RequestLossChance)
       {
         await UniTask.Delay(_config.TimeoutMs);
         return JsonConvert.SerializeObject(new ResponseDtoBase { Failure = FailureCode.Timeout });

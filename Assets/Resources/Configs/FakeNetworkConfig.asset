@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad81b31f55c44fa9a4448f3fb1339b4, type: 3}
   m_Name: FakeNetworkConfig
   m_EditorClassIdentifier: 
-  MinDelayMs: 0
-  MaxDelayMs: 0
-  NetworkFailureChance: 0.5
-  RequestLossChance: 0.1
-  TimeoutMs: 5000
+  MinDelayMs: 500
+  MaxDelayMs: 1000
+  NetworkFailureChance: 0
+  RequestLossChance: 0.7
+  TimeoutMs: 30000

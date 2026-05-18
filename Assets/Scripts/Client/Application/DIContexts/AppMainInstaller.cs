@@ -27,7 +27,6 @@ namespace Client.Application.DIContexts
           _fakeNetworkConfig.NetworkFailureChance, _fakeNetworkConfig.RequestLossChance,
           _fakeNetworkConfig.TimeoutMs)).AsSingle();
       
-      Container.Bind<RetryPolicyConfig>().AsSingle();
       Container.Bind<RetryPolicyConfig>().FromInstance(
         new RetryPolicyConfig(_retryPolicy.AttemptDelays, _retryPolicy.TimeoutSec));
       

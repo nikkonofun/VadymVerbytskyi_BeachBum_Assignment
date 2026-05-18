@@ -16,3 +16,4 @@ MonoBehaviour:
   - 1
   - 2
   - 4
+  TimeoutSec: 10

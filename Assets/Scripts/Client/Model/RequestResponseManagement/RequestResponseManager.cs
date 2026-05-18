@@ -4,6 +4,7 @@ using Client.Model.GameCommands;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using Shared.ClientServerFakeLayer;
+using Shared.SharedModel.Dto;
 using Zenject;
 
 namespace Client.Model.RequestResponseManagement
@@ -36,9 +37,9 @@ namespace Client.Model.RequestResponseManagement
 
       try
       {
-        var maxAttempts = Math.Max(1, _retryPolicy.AttemptDelays.Length);
+        var maxAttempts = Math.Max(1, _retryPolicy.AttemptDelays.Length + 1);
         var success = false;
-        for (var i = 0; i <= maxAttempts; i++)
+        for (var i = 0; i < maxAttempts; i++)
         {
           _retryAttempt = i;
           if (await ExecuteCommandAsync())
@@ -50,7 +51,7 @@ namespace Client.Model.RequestResponseManagement
 
         // All attempts failed
         if (!success)
-          _processingCommand.ProcessResponse(null);
+          await ProcessResponse(null);
       }
       finally
       {
@@ -77,7 +78,7 @@ namespace Client.Model.RequestResponseManagement
           return false;
 
         var response = _processingCommand.DeserializeResponse(responseJson);
-        _processingCommand.ProcessResponse(response);
+        await ProcessResponse(response);
         return true;
       }
       catch
@@ -101,6 +102,12 @@ namespace Client.Model.RequestResponseManagement
     {
       _cancellation?.Dispose();
       _cancellation = null;
+    }
+
+    private async UniTask ProcessResponse(ResponseDtoBase response)
+    {
+      await UniTask.SwitchToMainThread();
+      _processingCommand.ProcessResponse(response);
     }
   }
 }
