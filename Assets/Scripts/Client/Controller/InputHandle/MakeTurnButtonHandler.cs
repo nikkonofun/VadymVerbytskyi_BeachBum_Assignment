@@ -12,14 +12,7 @@ namespace Client.Controller.InputHandle
         {
           RequestId = processingRequestGuid
         }, AppModel, TurnEventsFeed)
-        .SetOnOk(response =>
-        {
-          // TODO: handle ok
-        })
-        .SetOnError(() =>
-        {
-          // TODO: handle error
-        });
+        .SetOnError(ShowNotificationError);
     }
   }
 }

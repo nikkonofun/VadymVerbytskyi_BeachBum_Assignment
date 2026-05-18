@@ -12,7 +12,7 @@ namespace Client.Model.GameCommands
 
     // Callbacks for Controller
     private Action<TResponse> _onOk;
-    private Action _onError;
+    private Action<IFaultDto> _onError;
     
     public RequestDtoBase RequestDto { get; private set; }
     
@@ -33,7 +33,7 @@ namespace Client.Model.GameCommands
       return this;
     }
     
-    public GameCommandBase<TRequest, TResponse> SetOnError(Action onError)
+    public GameCommandBase<TRequest, TResponse> SetOnError(Action<IFaultDto> onError)
     {
       _onError = onError;
       return this;
@@ -42,9 +42,9 @@ namespace Client.Model.GameCommands
     public void ProcessResponse(ResponseDtoBase response)
     {
       var responseTyped = response as TResponse;
-      if (responseTyped == null) // TODO: make error codes
+      if (responseTyped == null || responseTyped.FailureCode != null)
       {
-        _onError?.Invoke();
+        _onError?.Invoke(response);
         return;
       }
 

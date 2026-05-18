@@ -1,5 +1,4 @@
 using System;
-using Client.Controller.TurnsProcess;
 using Client.Model.GameCommands;
 using Shared.SharedModel.Dto.LaunchMatch;
 using UnityEngine;
@@ -29,10 +28,7 @@ namespace Client.Controller.InputHandle
       {
         SceneManager.LoadScene(_gameplaySceneName);
       })
-      .SetOnError(() =>
-      {
-        // TODO: handle error
-      });
+      .SetOnError(ShowNotificationError);
     }
 
 #if UNITY_EDITOR

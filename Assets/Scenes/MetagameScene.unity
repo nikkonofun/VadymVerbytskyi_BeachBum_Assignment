@@ -598,6 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12fca996de0441a8714f6c07c23b05a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _button: {fileID: 1405617682}
   _gameplaySceneAsset: {fileID: 102900000, guid: 2cda990e2423bbf4892e6590ba056729, type: 3}
   _gameplaySceneName: GameplayScene
 --- !u!1 &1908314404
