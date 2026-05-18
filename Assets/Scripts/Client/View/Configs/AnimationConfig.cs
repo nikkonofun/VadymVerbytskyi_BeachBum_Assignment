@@ -7,6 +7,7 @@ public class AnimationConfig : ScriptableObject
   [SerializeField] private float _cardTransitionSec = 0.65f;
   [SerializeField] private float _cardRotationSec = 0.4f;
   [SerializeField] private float _cardFlipSec = 0.25f;
+  [SerializeField] private float _matchEndRevealSec = 1.0f;
 
   private void Awake()
   {
@@ -17,4 +18,5 @@ public class AnimationConfig : ScriptableObject
   public float CardTransitionSec => _cardTransitionSec / _animationSpeed;
   public float CardRotationSec => _cardRotationSec / _animationSpeed;
   public float CardFlipSec => _cardFlipSec / _animationSpeed;
+  public float MatchEndRevealSec => _matchEndRevealSec / _animationSpeed;
 }

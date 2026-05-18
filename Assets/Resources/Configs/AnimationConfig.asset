@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cf727c3138167043b29ece627cf29d8, type: 3}
   m_Name: AnimationConfig
   m_EditorClassIdentifier: 
-  _animationSpeed: 1
+  _animationSpeed: 2
   _cardTransitionSec: 0.65
   _cardRotationSec: 0.5
   _cardFlipSec: 0.25
+  _matchEndRevealSec: 1

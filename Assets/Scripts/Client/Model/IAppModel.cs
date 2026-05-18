@@ -13,5 +13,6 @@ namespace Client.Model
     void UpdatePlayer(TurnEventData turnEventData);
     void UpdateMatchResult(MatchResultData matchResultData);
     PlayerData GetPlayerData(int playerIdx);
+    bool IsMatchFinished(out int? playerWinnerIdx);
   }
 }

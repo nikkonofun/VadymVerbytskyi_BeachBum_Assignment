@@ -43,5 +43,15 @@ namespace Client.Model
     {
       return _match.Players[playerIdx];
     }
+
+    public bool IsMatchFinished(out int? playerWinnerIdx)
+    {
+      playerWinnerIdx = null;
+      if (_match.MatchResult == null)
+        return false;
+
+      playerWinnerIdx = _match.MatchResult.WinnerPlayerIdx;
+      return true;
+    }
   }
 }
