@@ -55,7 +55,7 @@ namespace Client.Controller.InputHandle
     {
       ActivateButton(false);
       var command = GetCommand(_nextRequestGuid!.Value);
-      await _requestResponseManager.TryExecuteCommandAsync(command, _nextRequestGuid!.Value);
+      await _requestResponseManager.TryExecuteCommandAsync(command);
       _nextRequestGuid = null;
       ActivateButton(true);
     }
