@@ -37,6 +37,7 @@ namespace Server.ServerModel.Logic
         return response;
       }
 
+      PutRevealedCardToWarPile(matchData, response);
       if (!TryTakeUnrevealedForWar(matchData, response))
       {
         CheckEndMatch(matchData, response);
@@ -108,6 +109,18 @@ namespace Server.ServerModel.Logic
       responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.PutToSidePile, takerIdx, matchData));
     }
 
+    private void PutRevealedCardToWarPile(ServerMatchData matchData, MakeTurnResponseDto responseDto)
+    {
+      foreach (var player in matchData.Players)
+      {
+        if (player.RevealedOnTable == null)
+          continue;
+        
+        player.HiddenOnTable.Push(player.RevealedOnTable.Value);
+        player.RevealedOnTable = null;
+      }
+    }
+
     private bool TryTakeUnrevealedForWar(ServerMatchData matchData, MakeTurnResponseDto responseDto)
     {
       const int unrevealedToTake = 3;
@@ -121,7 +134,7 @@ namespace Server.ServerModel.Logic
               card =>
               {
                 matchData.Players[playerIdx].HiddenOnTable.Push(card);
-                responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.TakeUnrevealedForWar, i, matchData));
+                responseDto.TurnEvents.Enqueue(TurnEventDataHelper.Create(TurnEventKind.TakeUnrevealedForWar, playerIdx, matchData));
               }))
             return false;
         }

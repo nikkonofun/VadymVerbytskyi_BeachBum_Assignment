@@ -19,20 +19,19 @@ namespace Client.View.TurnsAnimation.AnimationClips
       
       var tweenTasks = new List<UniTask>();
       
-      revealedAnim.SetSprite(revealed);
+      revealedAnim.SetSprite(revealed.GetSprite());
       deckAnimExtra.Set(revealed.GetSprite() == null ? 0 : 1);
-      revealed.Set(null);
-      AnimationClipUtil.SetTransformation(revealedAnim, revealed);
-      AnimationClipUtil.SetTransformation(deckAnimExtra, revealed);
+      revealed.SetSprite(null);
+      AnimationClipUtil.SetTransformation(revealedAnim, revealed, customRotationZ: 0f);
+      AnimationClipUtil.SetTransformation(deckAnimExtra, revealed, 0f, 0f);
       tweenTasks.Add(AnimationClipUtil.MoveToAsync(revealedAnim, war, animationConfig.CardTransitionSec));
       tweenTasks.Add(AnimationClipUtil.MoveToAsync(deckAnimExtra, war, animationConfig.CardTransitionSec));
-      tweenTasks.Add(AnimationClipUtil.FlipHideAsync(revealedAnim, animationConfig.CardFlipSec).ContinueWith(() =>
-      {
-        AnimationClipUtil.FlipShowAsync(deckAnimExtra, animationConfig.CardFlipSec);
-      }));
+      tweenTasks.Add(AnimationClipUtil.FlipHideAsync(revealedAnim, animationConfig.CardFlipSec)
+        .ContinueWith(() => AnimationClipUtil.FlipShowAsync(deckAnimExtra, animationConfig.CardFlipSec)));
       
       deckAnim.Set(1);
-      AnimationClipUtil.SetTransformation(deckAnim, deck);
+      deck.Set(deck.GetCardsCount() - 1);
+      AnimationClipUtil.SetTransformation(deckAnim, deck, customRotationZ: 0f);
       tweenTasks.Add(AnimationClipUtil.MoveToAsync(deckAnim, war, animationConfig.CardTransitionSec));
 
       await UniTask.WhenAll(tweenTasks);

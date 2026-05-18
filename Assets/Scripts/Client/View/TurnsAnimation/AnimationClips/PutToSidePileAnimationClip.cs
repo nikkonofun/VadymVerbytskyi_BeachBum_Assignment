@@ -18,7 +18,7 @@ namespace Client.View.TurnsAnimation.AnimationClips
         var revealed = playerView.RevealedCard;
         var deckAnimExtra = playerView.CardsDeckAnimationExtra;
         deckAnimExtra.Set(turnEventData.PlayerTurn.SidePileCount);
-        revealedAnim.SetSprite(revealed);
+        revealedAnim.SetSprite(revealed.GetSprite());
         revealed.Set(null);
         AnimationClipUtil.SetTransformation(revealedAnim, revealed);
         AnimationClipUtil.SetTransformation(deckAnimExtra, revealed, customScaleX: 0f);

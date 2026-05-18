@@ -17,7 +17,6 @@ namespace Client.View.UiControl
     private CancellationTokenSource _cancellationToken;
     private Tween _tweenHighlight;
     
-    // TODO: connect with controller
     public void ShowHintDelayed()
     {
       if (_cancellationToken != null)

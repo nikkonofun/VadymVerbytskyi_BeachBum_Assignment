@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationSpeed: 1
   _cardTransitionSec: 0.65
-  _cardRotationSec: 0.4
-  _deckShuffleSec: 0.75
+  _cardRotationSec: 0.5
   _cardFlipSec: 0.25

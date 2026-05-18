@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Client.View.ElementsView;
 using Client.View.TurnsAnimation.AnimationClips;
+using Client.View.UiControl;
 using Cysharp.Threading.Tasks;
 using Shared.SharedModel.Data;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Client.View.TurnsAnimation
   {
     [SerializeField] private GameView _gameView;
     [SerializeField] private AnimationConfig _animationConfig;
+    [SerializeField] private HintHighlight _hintHighlight;
 
     private readonly Dictionary<TurnEventKind, IAnimationClip> _eventToClips = new()
     {
@@ -24,6 +26,7 @@ namespace Client.View.TurnsAnimation
     
     public void Animate(TurnEventData turnData, Action onAnimationFinished)
     {
+      _hintHighlight.HideHint();
       AnimateImpl(turnData, onAnimationFinished).Forget();
     }
 
@@ -38,6 +41,7 @@ namespace Client.View.TurnsAnimation
       AnimationClipUtil.ResetAnimationElements(_gameView);
       UpdateValues(turnData);
       onAnimationFinished();
+      _hintHighlight.ShowHintDelayed();
     }
 
     private void UpdateValues(TurnEventData turnData)

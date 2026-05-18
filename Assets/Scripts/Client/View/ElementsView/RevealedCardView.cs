@@ -22,9 +22,8 @@ namespace Client.View.ElementsView
       _cardImage.sprite = _cardsAtlas.GetSprite(spriteName);
     }
 
-    public void SetSprite(RevealedCardView takeFrom)
+    public void SetSprite(Sprite sprite)
     {
-      var sprite = takeFrom._cardImage.sprite;
       _obj.SetActive(sprite != null);
       _cardImage.sprite = sprite; 
     }

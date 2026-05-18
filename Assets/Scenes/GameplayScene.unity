@@ -258,6 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameView: {fileID: 1197867297}
   _animationConfig: {fileID: 11400000, guid: 0ae6b004547d650469d3b6d0885f23ed, type: 2}
+  _hintHighlight: {fileID: 683970956}
 --- !u!4 &215659383
 Transform:
   m_ObjectHideFlags: 0
